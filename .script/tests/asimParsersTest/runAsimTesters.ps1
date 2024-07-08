@@ -28,6 +28,7 @@ Class Parser {
 }
 
 function run {
+    write-host "Subscription ID is: $global:subscriptionId"
     $subscription = Select-AzSubscription -SubscriptionId $global:subscriptionId
     # Get modified ASIM Parser files along with their status
     $modifiedFilesStatus = Invoke-Expression "git diff --name-status origin/master -- $($PSScriptRoot)/../../../Parsers/"
