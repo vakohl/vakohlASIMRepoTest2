@@ -106,6 +106,4 @@ ParserQuery: |
         TargetUserUpn   = TargetUsername
     };
     parser  
-    (
-        disabled = disabled
-    )
+    (disabled=disabled)
