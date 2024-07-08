@@ -31,7 +31,19 @@ function run {
     write-host "Subscription ID is: $global:subscriptionId"
     $subscription = Select-AzSubscription -SubscriptionId $global:subscriptionId
     # Get modified ASIM Parser files along with their status
-    $modifiedFilesStatus = Invoke-Expression "git diff --name-status origin/master -- $($PSScriptRoot)/../../../Parsers/"
+    # Fetch the latest changes from the remote repository
+    Write-Host "Fetching latest changes from origin..."
+    Invoke-Expression "git fetch origin"
+
+    # Get the current branch name
+    $currentBranch = Invoke-Expression "git rev-parse --abbrev-ref HEAD"
+    Write-Host "Current branch: $currentBranch"
+
+    # Get the status of modified files
+    $diffCommand = "git diff --name-status origin/master -- $($PSScriptRoot)/../../../Parsers/"
+    Write-Host "Running command: $diffCommand"
+    $modifiedFilesStatus = Invoke-Expression $diffCommand
+    Write-Host "modifiedFilesStatus: $modifiedFilesStatus"
     # Split the output into lines
     $modifiedFilesStatusLines = $modifiedFilesStatus -split "`n"
     # Initialize an empty array to store the file names and their status
