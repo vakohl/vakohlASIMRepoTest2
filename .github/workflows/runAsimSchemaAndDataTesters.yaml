@@ -42,9 +42,9 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git config --local user.email "<>"
 
-      - name: Merge main into pull request branch
+      - name: Merge master into pull request branch
         run: |
-          git merge origin/main
+          git merge origin/master
           Conflicts=$(git ls-files -u | wc -l)
           if [ "$Conflicts" -gt 0 ] ; then
             echo "There is a merge conflict. Aborting"

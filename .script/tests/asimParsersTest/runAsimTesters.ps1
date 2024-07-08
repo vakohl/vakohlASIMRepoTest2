@@ -1,7 +1,7 @@
 $global:failed = 0
 
 # Subscription ID which contains Log Analytics workspace where the ASim schema and data tests will be conducted
-$global:subscriptionId = "4383ac89-7cd1-48c1-8061-b0b3c5ccfd97"
+$global:subscriptionId = "a2c2c31d-ebd4-4880-a60c-d615efa9d201"
 
 # Workspace ID for the Log Analytics workspace where the ASim schema and data tests will be conducted
 $global:workspaceId = "02dd2616-a0e2-4ca5-a303-bd69e22e0c12"
@@ -30,7 +30,7 @@ Class Parser {
 function run {
     $subscription = Select-AzSubscription -SubscriptionId $global:subscriptionId
     # Get modified ASIM Parser files along with their status
-    $modifiedFilesStatus = Invoke-Expression "git diff --name-status origin/main -- $($PSScriptRoot)/../../../Parsers/"
+    $modifiedFilesStatus = Invoke-Expression "git diff --name-status origin/master -- $($PSScriptRoot)/../../../Parsers/"
     # Split the output into lines
     $modifiedFilesStatusLines = $modifiedFilesStatus -split "`n"
     # Initialize an empty array to store the file names and their status
