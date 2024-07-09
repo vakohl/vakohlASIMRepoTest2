@@ -57,12 +57,13 @@ function run {
     $diffCommand = "git diff --name-status upstream/master -- $($PSScriptRoot)/../../../Parsers/"
     Write-Host "Running command: $diffCommand"
     $modifiedFilesStatus = Invoke-Expression $diffCommand
-
-    # Get the status of modified files
-    $diffCommand = "git diff --name-status origin/master -- $($PSScriptRoot)/../../../Parsers/"
-    Write-Host "Running command: $diffCommand"
-    $modifiedFilesStatus = Invoke-Expression $diffCommand
     Write-Host "modifiedFilesStatus: $modifiedFilesStatus"
+
+    # # Get the status of modified files
+    # $diffCommand = "git diff --name-status origin/master -- $($PSScriptRoot)/../../../Parsers/"
+    # Write-Host "Running command: $diffCommand"
+    # $modifiedFilesStatus = Invoke-Expression $diffCommand
+    # Write-Host "modifiedFilesStatus: $modifiedFilesStatus"
 
     # Check if there are any modified files
     if ($modifiedFilesStatus) {
