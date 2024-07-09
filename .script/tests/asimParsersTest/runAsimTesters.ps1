@@ -36,8 +36,16 @@ function run {
     Invoke-Expression "git fetch origin"
 
     # Get the current branch name
-    $currentBranch = Invoke-Expression "git rev-parse --abbrev-ref HEAD"
+    $currentBranch = Invoke-Expression "git rev-parse --symbolic-full-name --abbrev-ref HEAD"
     Write-Host "Current branch: $currentBranch"
+
+    # Get the remote repository URL
+    $remoteUrl = Invoke-Expression "git config --get remote.origin.url"
+    Write-Host "Remote repository URL: $remoteUrl"
+
+    # Combine the repository URL with the branch name for full reference
+    $fullBranchName = "$remoteUrl#$currentBranch"
+    Write-Host "Full branch name including repo: $fullBranchName"
 
     # Get the status of modified files
     $diffCommand = "git diff --name-status origin/master -- $($PSScriptRoot)/../../../Parsers/"
