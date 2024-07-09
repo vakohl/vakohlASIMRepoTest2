@@ -38,9 +38,9 @@ function run {
 
     # # Fetch the latest changes from the origin and upstream repositories
     # Write-Host "Fetching latest changes from origin and upstream..."
-    # Invoke-Expression "git fetch origin"
-    # Invoke-Expression "git fetch upstream"
-    # Invoke-Expression "git remote"
+    Invoke-Expression "git fetch origin"
+    Invoke-Expression "git fetch upstream"
+    Invoke-Expression "git remote"
 
     # Get the full branch name including the repository
     # $currentBranch = Invoke-Expression "git rev-parse --symbolic-full-name --abbrev-ref HEAD"
