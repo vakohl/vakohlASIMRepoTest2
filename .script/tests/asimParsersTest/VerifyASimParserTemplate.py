@@ -283,10 +283,15 @@ def filter_yaml_files(modified_files):
 
 def get_modified_files(current_directory):
 
-    gitaddupstream = f"git remote add upstream {SentinelRepoUrl}"
-    subprocess.run(gitaddupstream, shell=True, text=True, capture_output=True, check=True)
-    gitfetchupstream = f"git fetch upstream"
-    subprocess.run(gitfetchupstream, shell=True, text=True, capture_output=True, check=True)
+    # Add upstream remote if not already present
+    git_remote_command = "git remote"
+    remote_result = subprocess.run(git_remote_command, shell=True, text=True, capture_output=True, check=True)
+    if 'upstream' not in remote_result.stdout.split():
+        git_add_upstream_command = f"git remote add upstream '{SentinelRepoUrl}'"
+        subprocess.run(git_add_upstream_command, shell=True, text=True, capture_output=True, check=True)
+    # Fetch from upstream
+    git_fetch_upstream_command = "git fetch upstream"
+    subprocess.run(git_fetch_upstream_command, shell=True, text=True, capture_output=True, check=True)
     cmd = f"git diff --name-only upstream/master {current_directory}/../../../Parsers/"
     try:
         return subprocess.check_output(cmd, shell=True).decode().split("\n")
