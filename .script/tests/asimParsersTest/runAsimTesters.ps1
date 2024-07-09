@@ -33,8 +33,8 @@ function run {
     # Get modified ASIM Parser files along with their status
     # Fetch the latest changes from the remote repository
     # Add the upstream repository
-    $upstreamUrl = "https://github.com/vakohl/vakohlASIMRepoTest2.git"
-    Invoke-Expression "git remote add upstream $upstreamUrl"
+    # $upstreamUrl = "https://github.com/vakohl/vakohlASIMRepoTest2.git"
+    # Invoke-Expression "git remote add upstream $upstreamUrl"
 
     # Fetch the latest changes from the origin and upstream repositories
     Write-Host "Fetching latest changes from origin and upstream..."
@@ -53,17 +53,20 @@ function run {
     $fullBranchName = "$remoteUrl#$currentBranch"
     Write-Host "Full branch name including repo: $fullBranchName"
 
-    # Get the status of modified files by comparing with the upstream master branch
-    $diffCommand = "git diff --name-status upstream/master -- $($PSScriptRoot)/../../../Parsers/"
-    Write-Host "Running command: $diffCommand"
-    $modifiedFilesStatus = Invoke-Expression $diffCommand
-    Write-Host "modifiedFilesStatus: $modifiedFilesStatus"
-
-    # # Get the status of modified files
-    # $diffCommand = "git diff --name-status origin/master -- $($PSScriptRoot)/../../../Parsers/"
+    # # Get the status of modified files by comparing with the upstream master branch
+    # $diffCommand = "git diff --name-status upstream/master -- $($PSScriptRoot)/../../../Parsers/"
     # Write-Host "Running command: $diffCommand"
     # $modifiedFilesStatus = Invoke-Expression $diffCommand
     # Write-Host "modifiedFilesStatus: $modifiedFilesStatus"
+
+    # Get base branch
+    $baseBranch = GetBaseBranch
+
+    # Get the status of modified files
+    $diffCommand = "git diff --name-status $baseBranch -- $($PSScriptRoot)/../../../Parsers/"
+    Write-Host "Running command: $diffCommand"
+    $modifiedFilesStatus = Invoke-Expression $diffCommand
+    Write-Host "modifiedFilesStatus: $modifiedFilesStatus"
 
     # Check if there are any modified files
     if ($modifiedFilesStatus) {
@@ -104,6 +107,19 @@ function run {
 
     # Call testSchema function for each modified parser file
     $modifiedFiles | ForEach-Object { testSchema $_.Name }
+}
+
+# Function to check if a remote exists
+function GetBaseBranch() {
+    $remotes = git remote
+    if($remotes -contains "upstream")
+        {
+            $baseBranch = "upstream/master"
+        }
+    else {
+            $baseBranch = "origin/master"
+    }
+    return $baseBranch
 }
 
 function testSchema([string] $ParserFile) {
