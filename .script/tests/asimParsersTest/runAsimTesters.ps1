@@ -28,7 +28,7 @@ Class Parser {
 }
 
 function run {
-    Write-Host "This is the script from PR."
+    # Write-Host "This is the script from PR."
     # Add the upstream repository
     Invoke-Expression "git remote add upstream $SentinelRepoUrl"
 
