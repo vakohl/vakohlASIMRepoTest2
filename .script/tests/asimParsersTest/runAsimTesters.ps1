@@ -29,10 +29,15 @@ Class Parser {
 
 function run {
     # Write-Host "This is the script from PR."
-    # Add the upstream repository
-    Invoke-Expression "git remote add upstream $SentinelRepoUrl"
+    # Check if upstream remote already exists
+    $remoteExists = Invoke-Expression "git remote" | Select-String -Pattern "upstream"
 
-    # # Fetch the latest changes from upstream repositories
+    if (-not $remoteExists) {
+        Write-Host "Adding upstream remote..."
+        Invoke-Expression "git remote add upstream $SentinelRepoUrl"
+    }
+
+    # Fetch the latest changes from upstream repositories
     Write-Host "Fetching latest changes from upstream..."
     Invoke-Expression "git fetch upstream"
 
