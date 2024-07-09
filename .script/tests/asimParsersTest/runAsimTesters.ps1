@@ -32,7 +32,7 @@ function run {
     $subscription = Select-AzSubscription -SubscriptionId $global:subscriptionId
     # Get modified ASIM Parser files along with their status
     # Fetch the latest changes from the remote repository
-    Add the upstream repository
+    # Add the upstream repository
     $upstreamUrl = "https://github.com/vakohl/vakohlASIMRepoTest2.git"
     Invoke-Expression "git remote add upstream $upstreamUrl"
 
