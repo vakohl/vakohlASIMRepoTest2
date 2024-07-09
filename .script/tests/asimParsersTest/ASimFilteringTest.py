@@ -26,7 +26,7 @@ TIME_SPAN_IN_DAYS = 7
 exclusion_file_path = '.script/tests/asimParsersTest/ExclusionListForASimTests.csv'
 
 # Sentinel Repo URL
-SentinelRepoUrl = "https://github.com/vakohl/vakohlASIMRepoTest2.git"
+SentinelRepoUrl = f"https://github.com/vakohl/vakohlASIMRepoTest2.git"
 
 # Negative value as it is cannot be a port number and less likely to be an ID of some event. Also, the absolute value is greater than the maximal possible port number.
 INT_DUMMY_VALUE = -967799

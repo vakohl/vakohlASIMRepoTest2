@@ -12,6 +12,8 @@ from tabulate import tabulate
 SENTINEL_REPO_URL = f'https://raw.githubusercontent.com/Azure/Azure-Sentinel'
 SAMPLE_DATA_PATH = '/Sample%20Data/ASIM/'
 parser_exclusion_file_path = '.script/tests/asimParsersTest/ExclusionListForASimTests.csv'
+# Sentinel Repo URL
+SentinelRepoUrl = f"https://github.com/vakohl/vakohlASIMRepoTest2.git"
 SCHEMA_INFO = [
     {"SchemaName": "AuditEvent", "SchemaVersion": "0.1", "SchemaTitle":"ASIM Audit Event Schema", "SchemaLink": "https://aka.ms/ASimAuditEventDoc"},
     {"SchemaName": "Authentication", "SchemaVersion": "0.1.3","SchemaTitle":"ASIM Authentication Schema","SchemaLink": "https://aka.ms/ASimAuthenticationDoc"},
@@ -280,7 +282,12 @@ def filter_yaml_files(modified_files):
     return [line for line in modified_files if line.endswith('.yaml')]
 
 def get_modified_files(current_directory):
-    cmd = f"git diff --name-only origin/master {current_directory}/../../../Parsers/"
+
+    gitaddupstream = f"git remote add upstream {SentinelRepoUrl}"
+    subprocess.run(gitaddupstream, shell=True, text=True, capture_output=True, check=True)
+    gitfetchupstream = f"git fetch upstream"
+    subprocess.run(gitfetchupstream, shell=True, text=True, capture_output=True, check=True)
+    cmd = f"git diff --name-only upstream/master {current_directory}/../../../Parsers/"
     try:
         return subprocess.check_output(cmd, shell=True).decode().split("\n")
     except subprocess.CalledProcessError as e:
