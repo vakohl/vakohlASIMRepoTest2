@@ -33,8 +33,8 @@ function run {
     # Get modified ASIM Parser files along with their status
     # Fetch the latest changes from the remote repository
     # Add the upstream repository
-    $upstreamUrl = "https://github.com/vakohl/vakohlASIMRepoTest2.git"
-    Invoke-Expression "git remote add upstream $upstreamUrl"
+    # $upstreamUrl = "https://github.com/vakohl/vakohlASIMRepoTest2.git"
+    # Invoke-Expression "git remote add upstream $upstreamUrl"
 
     # Fetch the latest changes from the origin and upstream repositories
     Write-Host "Fetching latest changes from origin and upstream..."
