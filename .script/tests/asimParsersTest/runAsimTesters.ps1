@@ -32,10 +32,16 @@ function run {
     $subscription = Select-AzSubscription -SubscriptionId $global:subscriptionId
     # Get modified ASIM Parser files along with their status
     # Fetch the latest changes from the remote repository
-    Write-Host "Fetching latest changes from origin..."
-    Invoke-Expression "git fetch origin"
+    # Add the upstream repository
+    $upstreamUrl = "https://github.com/vakohl/vakohlASIMRepoTest2.git"
+    Invoke-Expression "git remote add upstream $upstreamUrl"
 
-    # Get the current branch name
+    # Fetch the latest changes from the origin and upstream repositories
+    Write-Host "Fetching latest changes from origin and upstream..."
+    Invoke-Expression "git fetch origin"
+    Invoke-Expression "git fetch upstream"
+
+    # Get the full branch name including the repository
     $currentBranch = Invoke-Expression "git rev-parse --symbolic-full-name --abbrev-ref HEAD"
     Write-Host "Current branch: $currentBranch"
 
@@ -47,11 +53,25 @@ function run {
     $fullBranchName = "$remoteUrl#$currentBranch"
     Write-Host "Full branch name including repo: $fullBranchName"
 
+    # Get the status of modified files by comparing with the upstream master branch
+    $diffCommand = "git diff --name-status upstream/master -- $($PSScriptRoot)/../../../Parsers/"
+    Write-Host "Running command: $diffCommand"
+    $modifiedFilesStatus = Invoke-Expression $diffCommand
+
     # Get the status of modified files
     $diffCommand = "git diff --name-status origin/master -- $($PSScriptRoot)/../../../Parsers/"
     Write-Host "Running command: $diffCommand"
     $modifiedFilesStatus = Invoke-Expression $diffCommand
     Write-Host "modifiedFilesStatus: $modifiedFilesStatus"
+
+    # Check if there are any modified files
+    if ($modifiedFilesStatus) {
+        Write-Host "The following ASIM parser files have been updated. 'Schema' and 'Data' tests will be performed for each of these parsers:"
+        Write-Host "***************************************************"
+        Write-Host $modifiedFilesStatus
+    } else {
+        Write-Host "No ASIM parser files have been updated."
+    }
     # Split the output into lines
     $modifiedFilesStatusLines = $modifiedFilesStatus -split "`n"
     # Initialize an empty array to store the file names and their status
