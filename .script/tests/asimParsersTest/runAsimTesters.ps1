@@ -32,27 +32,27 @@ function run {
     $subscription = Select-AzSubscription -SubscriptionId $global:subscriptionId
     # Get modified ASIM Parser files along with their status
     # Fetch the latest changes from the remote repository
-    # Add the upstream repository
-    # $upstreamUrl = "https://github.com/vakohl/vakohlASIMRepoTest2.git"
-    # Invoke-Expression "git remote add upstream $upstreamUrl"
+    Add the upstream repository
+    $upstreamUrl = "https://github.com/vakohl/vakohlASIMRepoTest2.git"
+    Invoke-Expression "git remote add upstream $upstreamUrl"
 
-    # Fetch the latest changes from the origin and upstream repositories
-    Write-Host "Fetching latest changes from origin and upstream..."
-    Invoke-Expression "git fetch origin"
-    Invoke-Expression "git fetch upstream"
-    Invoke-Expression "git remote"
+    # # Fetch the latest changes from the origin and upstream repositories
+    # Write-Host "Fetching latest changes from origin and upstream..."
+    # Invoke-Expression "git fetch origin"
+    # Invoke-Expression "git fetch upstream"
+    # Invoke-Expression "git remote"
 
     # Get the full branch name including the repository
-    $currentBranch = Invoke-Expression "git rev-parse --symbolic-full-name --abbrev-ref HEAD"
-    Write-Host "Current branch: $currentBranch"
+    # $currentBranch = Invoke-Expression "git rev-parse --symbolic-full-name --abbrev-ref HEAD"
+    # Write-Host "Current branch: $currentBranch"
 
     # Get the remote repository URL
-    $remoteUrl = Invoke-Expression "git config --get remote.origin.url"
-    Write-Host "Remote repository URL: $remoteUrl"
+    # $remoteUrl = Invoke-Expression "git config --get remote.origin.url"
+    # Write-Host "Remote repository URL: $remoteUrl"
 
     # Combine the repository URL with the branch name for full reference
-    $fullBranchName = "$remoteUrl#$currentBranch"
-    Write-Host "Full branch name including repo: $fullBranchName"
+    # $fullBranchName = "$remoteUrl#$currentBranch"
+    # Write-Host "Full branch name including repo: $fullBranchName"
 
     # # Get the status of modified files by comparing with the upstream master branch
     # $diffCommand = "git diff --name-status upstream/master -- $($PSScriptRoot)/../../../Parsers/"
@@ -61,10 +61,10 @@ function run {
     # Write-Host "modifiedFilesStatus: $modifiedFilesStatus"
 
     # Get base branch
-    $baseBranch = GetBaseBranch
+    # $baseBranch = GetBaseBranch
 
     # Get the status of modified files
-    $diffCommand = "git diff --name-status $baseBranch -- $($PSScriptRoot)/../../../Parsers/"
+    $diffCommand = "git diff --name-status upstream/master -- $($PSScriptRoot)/../../../Parsers/"
     Write-Host "Running command: $diffCommand"
     $modifiedFilesStatus = Invoke-Expression $diffCommand
     Write-Host "modifiedFilesStatus: $modifiedFilesStatus"
