@@ -115,7 +115,7 @@ jobs:
       - name: Run ASim parsers template validations python script
         run: |
               filePath=".script/tests/asimParsersTest/VerifyASimParserTemplate.py"
-              url="https://raw.githubusercontent.com/vakohl/vakohlASIMRepoTest2/.script/tests/asimParsersTest/VerifyASimParserTemplate.py" 
+              url="https://raw.githubusercontent.com/vakohl/vakohlASIMRepoTest2/master/.script/tests/asimParsersTest/VerifyASimParserTemplate.py" 
               # Check if file exists and delete if it does
               if [ -f "$filePath" ]; then
                 rm -f "$filePath"
@@ -168,7 +168,7 @@ jobs:
       - name: Run ASim parsers filtering tests python script
         run: |
           filePath=".script/tests/asimParsersTest/ASimFilteringTest.py"
-          url="https://raw.githubusercontent.com/vakohl/vakohlASIMRepoTest2/.script/tests/asimParsersTest/ASimFilteringTest.py"
+          url="https://raw.githubusercontent.com/vakohl/vakohlASIMRepoTest2/master/.script/tests/asimParsersTest/ASimFilteringTest.py"
           # Check if file exists and delete if it does
           if [ -f "$filePath" ]; then
             rm -f "$filePath"
