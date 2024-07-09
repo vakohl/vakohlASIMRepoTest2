@@ -47,8 +47,8 @@ start_time = end_time - timedelta(days = TIME_SPAN_IN_DAYS)
 
 def attempt_to_connect():
     try:
-            #credential = DefaultAzureCredential()
-            credential = InteractiveBrowserCredential() # Uncomment this line if you want to use the interactive browser credential for testing purposes
+            credential = DefaultAzureCredential()
+            #credential = InteractiveBrowserCredential() # Uncomment this line if you want to use the interactive browser credential for testing purposes
             client = LogsQueryClient(credential)
             empty_query = ""
             response = client.query_workspace(
