@@ -232,6 +232,9 @@ def read_exclusion_list_from_csv():
 def main():
     # Get modified ASIM Parser files along with their status
     current_directory = os.path.dirname(os.path.abspath(__file__))
+
+    subprocess.run(f"git fetch --all", shell=True, text=True, capture_output=True, check=True)
+
     GetModifiedFiles = f"git diff --name-only origin/master {current_directory}/../../../Parsers/"
     try:
         modified_files = subprocess.run(GetModifiedFiles, shell=True, text=True, capture_output=True, check=True)
