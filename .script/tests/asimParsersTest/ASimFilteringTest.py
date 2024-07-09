@@ -25,6 +25,9 @@ TIME_SPAN_IN_DAYS = 7
 # exclusion_file_path refers to the CSV file path containing a list of parsers. Despite failing tests, these parsers will not cause the overall workflow to fail
 exclusion_file_path = '.script/tests/asimParsersTest/ExclusionListForASimTests.csv'
 
+# Sentinel Repo URL
+SentinelRepoUrl = "https://github.com/vakohl/vakohlASIMRepoTest2.git"
+
 # Negative value as it is cannot be a port number and less likely to be an ID of some event. Also, the absolute value is greater than the maximal possible port number.
 INT_DUMMY_VALUE = -967799
 # The index of the column with the value from a query response.
@@ -233,9 +236,15 @@ def main():
     # Get modified ASIM Parser files along with their status
     current_directory = os.path.dirname(os.path.abspath(__file__))
 
-    subprocess.run(f"git fetch --all", shell=True, text=True, capture_output=True, check=True)
+    gitaddupstream = f"git remote add upstream {SentinelRepoUrl}"
 
-    GetModifiedFiles = f"git diff --name-only origin/master {current_directory}/../../../Parsers/"
+    subprocess.run(gitaddupstream, shell=True, text=True, capture_output=True, check=True)
+
+    gitfetchupstream = f"git fetch upstream"
+
+    subprocess.run(gitfetchupstream, shell=True, text=True, capture_output=True, check=True)
+
+    GetModifiedFiles = f"git diff --name-only upstream/master {current_directory}/../../../Parsers/"
     try:
         modified_files = subprocess.run(GetModifiedFiles, shell=True, text=True, capture_output=True, check=True)
     except subprocess.CalledProcessError as e:
