@@ -126,6 +126,7 @@ ParserQuery: |
     SessionId=NetworkSessionId,
     EventEndTime =EventStartTime,
     Src=SrcIpAddr
+    // test
     | project-away AdditionalExtensions, CommunicationDirection, Device*, Destination*, EndTime, ExternalID, File*, Flex*, IndicatorThreatType, Malicious*, Old*, Process*, ReceiptTime, ReceivedBytes, Remote*, Request*, Sent*, SimplifiedDeviceAction, Source*, StartTime, TenantId, ThreatConfidence, ThreatDescription, ThreatSeverity, EventOutcome, FieldDevice*, ExtID, Reason, ReportReferenceLink, Activity, Computer, OriginalLogSeverity, PaloAltoFlags, Protocol
     };
     NWParser (disabled)

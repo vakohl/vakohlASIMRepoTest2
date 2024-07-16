@@ -2,7 +2,7 @@
 # The script runs ASIM Schema and Data testers on the "eco-connector-test" workspace.
 name: Run ASIM tests on "ASIM-SchemaDataTester-GithubShared" workspace
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, edited, reopened, synchronize, labeled]
     branches:
       - master
@@ -41,8 +41,8 @@ jobs:
       - name: Login to Azure Public Cloud with AzPowershell
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_ASIM_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          client-id: '4b5a550b-a252-4a10-a7ce-a576ba69a091'
+          tenant-id: 'c3407c03-0fa4-47b0-a0b9-db0fb5b002fc'
           enable-AzPSSession: true
           allow-no-subscriptions: true
 
@@ -65,15 +65,15 @@ jobs:
         with:
           inlineScript: |
             $filePath = ".script/tests/asimParsersTest/runAsimTesters.ps1"
-            $url = "https://raw.githubusercontent.com/vakohl/vakohlASIMRepoTest2/master/.script/tests/asimParsersTest/runAsimTesters.ps1"
-            # Check if file exists and delete if it does
-            if (Test-Path $filePath) {
-              Remove-Item $filePath -Force
-            }
-            # Download the file
-            Write-Host "Downloading script from the master: $url"
-            Invoke-WebRequest -Uri $url -OutFile $filePath
-            # Execute the script
+            # $url = "https://raw.githubusercontent.com/vakohl/vakohlASIMRepoTest2/master/.script/tests/asimParsersTest/runAsimTesters.ps1"
+            # # Check if file exists and delete if it does
+            # if (Test-Path $filePath) {
+            #   Remove-Item $filePath -Force
+            # }
+            # # Download the file
+            # Write-Host "Downloading script from the master: $url"
+            # Invoke-WebRequest -Uri $url -OutFile $filePath
+            # # Execute the script
             & $filePath
           azPSVersion: "latest"
           errorActionPreference: continue
@@ -115,14 +115,14 @@ jobs:
       - name: Run ASim parsers template validations python script
         run: |
               filePath=".script/tests/asimParsersTest/VerifyASimParserTemplate.py"
-              url="https://raw.githubusercontent.com/vakohl/vakohlASIMRepoTest2/master/.script/tests/asimParsersTest/VerifyASimParserTemplate.py" 
-              # Check if file exists and delete if it does
-              if [ -f "$filePath" ]; then
-                rm -f "$filePath"
-              fi
-              # Download the file
-              echo "Downloading script from the master: $url"
-              curl -o "$filePath" "$url"
+              # url="https://raw.githubusercontent.com/vakohl/vakohlASIMRepoTest2/master/.script/tests/asimParsersTest/VerifyASimParserTemplate.py" 
+              # # Check if file exists and delete if it does
+              # if [ -f "$filePath" ]; then
+              #   rm -f "$filePath"
+              # fi
+              # # Download the file
+              # echo "Downloading script from the master: $url"
+              # curl -o "$filePath" "$url"
               # Execute the script
               python "$filePath"
   Run-ASim-Parser-Filtering-Tests:
@@ -162,19 +162,19 @@ jobs:
       - name: Login to Azure Public Cloud
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_ASIM_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          client-id: '4b5a550b-a252-4a10-a7ce-a576ba69a091'
+          tenant-id: 'c3407c03-0fa4-47b0-a0b9-db0fb5b002fc'
           allow-no-subscriptions: true
       - name: Run ASim parsers filtering tests python script
         run: |
           filePath=".script/tests/asimParsersTest/ASimFilteringTest.py"
-          url="https://raw.githubusercontent.com/vakohl/vakohlASIMRepoTest2/master/.script/tests/asimParsersTest/ASimFilteringTest.py"
-          # Check if file exists and delete if it does
-          if [ -f "$filePath" ]; then
-            rm -f "$filePath"
-          fi
-          # Download the file
-          echo "Downloading script from the master: $url"
-          curl -o "$filePath" "$url"
-          # Execute the script
+          # url="https://raw.githubusercontent.com/vakohl/vakohlASIMRepoTest2/master/.script/tests/asimParsersTest/ASimFilteringTest.py"
+          # # Check if file exists and delete if it does
+          # if [ -f "$filePath" ]; then
+          #   rm -f "$filePath"
+          # fi
+          # # Download the file
+          # echo "Downloading script from the master: $url"
+          # curl -o "$filePath" "$url"
+          # # Execute the script
           python "$filePath"

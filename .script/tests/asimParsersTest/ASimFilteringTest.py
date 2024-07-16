@@ -233,6 +233,7 @@ def read_exclusion_list_from_csv():
     return exclusion_list
 
 def main():
+    print("This script is called from PR workflow. Running ASim filtering tests...")
     # Get modified ASIM Parser files along with their status
     current_directory = os.path.dirname(os.path.abspath(__file__))
 
